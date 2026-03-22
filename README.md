@@ -32,7 +32,7 @@
 ### 1. Kloning Project
 ```bash
 git clone https://github.com/diaz1414/roasting-hp.git
-cd roasthp
+cd roasting-hp
 ```
 
 ### 2. Setup API Key
