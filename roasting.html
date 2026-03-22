@@ -33,20 +33,49 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
     <title>Roast My Phone 🔥</title>
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
+                        sans: ['Outfit', 'sans-serif'],
                     },
                     colors: {
                         roast: {
-                            500: '#ef4444',
-                            600: '#dc2626',
+                            500: '#ff3333',
+                            600: '#e60000',
+                            900: '#0a0000',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        },
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
                         }
                     }
                 }
@@ -55,130 +84,292 @@
     </script>
 
     <style>
-        /* Animasi Custom */
+        body {
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 0%, #1a0505 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, #1a0500 0%, transparent 50%);
+            overflow-x: hidden;
+            color: #f8fafc;
+        }
+
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px -12px rgba(255, 50, 50, 0.15);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 50, 50, 0.5);
+            box-shadow: 0 0 20px rgba(255, 50, 50, 0.2);
+            outline: none;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ff4d4d, #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .fade-in-up {
-            animation: fadeInUp 0.5s ease-out forwards;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stagger-1 {
+            animation-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            animation-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            animation-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            animation-delay: 0.4s;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .glow-effect {
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        .btn-glow {
+            position: relative;
         }
 
-        /* Hilangkan scrollbar tapi tetap bisa scroll */
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #ff0000);
+            z-index: -1;
+            border-radius: inherit;
+            background-size: 200%;
+            animation: gradient-x 3s linear infinite;
+            filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-glow:hover::before {
+            opacity: 0.8;
+        }
+
+        /* Custom AI Loading Animation */
+        .ai-core {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff4d4d 20%, transparent 70%);
+            box-shadow: 0 0 30px #ff4d4d;
+            animation: pulse-core 1.5s ease-in-out infinite;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .ai-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(255, 50, 50, 0.5);
+            border-radius: 50%;
+            animation: spin 3s linear infinite;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+        }
+
+        .ai-ring-2 {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px dashed rgba(255, 100, 50, 0.3);
+            border-radius: 50%;
+            animation: spin-reverse 5s linear infinite;
+        }
+
+        @keyframes pulse-core {
+
+            0%,
+            100% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+                box-shadow: 0 0 50px #ff4d4d;
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin-reverse {
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+
+        /* Hide scrollbar */
         ::-webkit-scrollbar {
             display: none;
         }
     </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative">
 
+    <!-- Ambient Background Blobs -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-red-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob">
+        </div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-orange-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"
+            style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-rose-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"
+            style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Toast UI -->
     <div id="toast"
-        class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center w-[90%] max-w-sm p-4 space-x-3 text-slate-200 bg-slate-800/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-red-500 transition-all duration-500 opacity-0 -translate-y-10 pointer-events-none">
-        <div class="text-red-500 animate-pulse">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center w-[90%] max-w-sm p-4 space-x-4 glass-panel rounded-2xl border border-red-500/50 transition-all duration-500 opacity-0 -translate-y-10 pointer-events-none shadow-[0_10px_40px_rgba(239,68,68,0.3)]">
+        <div class="text-red-500 animate-pulse bg-red-500/10 p-2 rounded-full flex-shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                </path>
             </svg>
         </div>
-        <div id="toastMessage" class="text-sm font-semibold tracking-wide">Pesan Notifikasi</div>
+        <div id="toastMessage" class="text-sm font-medium tracking-wide text-white">Pesan Notifikasi</div>
     </div>
 
-    <div
-        class="bg-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-800 w-full max-w-md relative overflow-hidden z-10">
+    <!-- Main Container -->
+    <div class="glass-panel p-8 sm:p-10 rounded-[2.5rem] w-full max-w-md relative z-10 fade-in-up mt-8">
 
-        <div
-            class="absolute -top-20 -right-20 w-40 h-40 bg-red-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20">
-        </div>
-        <div
-            class="absolute -bottom-20 -left-20 w-40 h-40 bg-orange-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20">
-        </div>
-
-        <div class="text-center mb-8 relative z-10">
-            <img src="./logo.png" alt="Diaww Roasting HP"
-                class="w-28 h-28 mx-auto mb-4 rounded-2xl shadow-xl border-2 border-red-500/30 object-cover glow-effect hover:scale-105 transition-transform duration-300">
-            <h1
-                class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-400 mb-2">
-                Roast My Phone 🔥
+        <!-- Header -->
+        <div class="text-center mb-10 relative">
+            <div class="relative inline-block animate-float">
+                <div class="absolute inset-0 bg-red-500/30 blur-2xl rounded-full"></div>
+                <img src="./logo.png" alt="Diaww Roasting HP"
+                    class="relative w-32 h-32 mx-auto mb-6 rounded-3xl shadow-2xl border border-white/10 object-cover bg-black/50">
+            </div>
+            <h1 class="text-4xl font-black text-gradient bg-clip-text mb-3 tracking-tight animate-gradient-x p-1">
+                Roast My Phone
             </h1>
-            <p class="text-slate-400 text-sm">Masukin spek HP kamu, siap-siap kena mental sama AI.</p>
+            <p class="text-slate-400 text-sm font-medium px-4">Siapin mental lu. Masukin spek buat di-roasting AI jaman
+                now.</p>
         </div>
 
-        <div class="space-y-4 relative z-10">
-            <div>
-                <label class="block text-xs text-slate-400 mb-1 ml-1 uppercase tracking-wider">Merek HP</label>
+        <!-- Inputs Section -->
+        <div class="space-y-4">
+            <div class="fade-in-up stagger-1">
+                <label class="block text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">Merek
+                    HP</label>
                 <input type="text" id="brand" placeholder="Cth: Xiaomi, iPhone, Samsung..."
-                    class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 focus:ring-2 focus:ring-roast-500 focus:border-transparent outline-none transition duration-300">
+                    class="w-full glass-input rounded-2xl p-4 text-white placeholder-slate-600">
             </div>
 
-            <div>
-                <label class="block text-xs text-slate-400 mb-1 ml-1 uppercase tracking-wider">Tipe/Seri</label>
-                <input type="text" id="model" placeholder="Cth: Redmi Note 10, 11 Pro..."
-                    class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 focus:ring-2 focus:ring-roast-500 focus:border-transparent outline-none transition duration-300">
+            <div class="fade-in-up stagger-2">
+                <label
+                    class="block text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">Tipe/Seri</label>
+                <input type="text" id="model" placeholder="Cth: Note 10, 11 Pro..."
+                    class="w-full glass-input rounded-2xl p-4 text-white placeholder-slate-600">
             </div>
 
-            <div class="flex gap-4">
+            <div class="flex gap-4 fade-in-up stagger-3">
                 <div class="w-1/2">
-                    <label class="block text-xs text-slate-400 mb-1 ml-1 uppercase tracking-wider">RAM (GB)</label>
-                    <input type="number" id="ram" placeholder="Cth: 4"
-                        class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 focus:ring-2 focus:ring-roast-500 focus:border-transparent outline-none transition duration-300">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">RAM <span
+                            class="text-[10px] text-slate-500 lowercase">(GB)</span></label>
+                    <input type="number" id="ram" placeholder="4"
+                        class="w-full glass-input rounded-2xl p-4 text-white placeholder-slate-600 text-center">
                 </div>
                 <div class="w-1/2">
-                    <label class="block text-xs text-slate-400 mb-1 ml-1 uppercase tracking-wider">Storage (GB)</label>
-                    <input type="number" id="storage" placeholder="Cth: 64"
-                        class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 focus:ring-2 focus:ring-roast-500 focus:border-transparent outline-none transition duration-300">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">ROM <span
+                            class="text-[10px] text-slate-500 lowercase">(GB)</span></label>
+                    <input type="number" id="storage" placeholder="64"
+                        class="w-full glass-input rounded-2xl p-4 text-white placeholder-slate-600 text-center">
                 </div>
             </div>
 
-            <button onclick="roastIt()" id="roastBtn"
-                class="w-full mt-4 bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white font-bold py-4 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] glow-effect flex justify-center items-center gap-2">
-                <span>🔥 ROAST SEKARANG 🔥</span>
-            </button>
+            <div class="pt-4 fade-in-up stagger-4">
+                <button onclick="roastIt()" id="roastBtn"
+                    class="btn-glow w-full bg-gradient-to-r from-red-600 via-orange-500 to-red-600 bg-[length:200%_auto] hover:bg-right text-white font-bold py-4 px-4 rounded-2xl transition-all duration-500 transform hover:-translate-y-1 active:scale-95 flex justify-center items-center gap-3 overflow-hidden group">
+                    <span class="relative z-10 tracking-widest text-sm uppercase">🔥 Roast Sekarang 🔥</span>
+                </button>
+            </div>
         </div>
 
-        <div id="loading" class="hidden mt-8 text-center fade-in-up">
-            <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-500 mb-2"></div>
-            <p class="text-slate-400 text-sm animate-pulse">AI sedang meracik kata-kata pedas...</p>
+        <!-- Custom Loading State -->
+        <div id="loading" class="hidden mt-10 text-center py-6">
+            <div class="ai-core mb-8">
+                <div class="ai-ring"></div>
+                <div class="ai-ring-2"></div>
+            </div>
+            <p class="text-red-400 text-sm font-bold tracking-widest uppercase animate-pulse">AI Sedang Meracik
+                Kata-kata Pedas...</p>
         </div>
 
+        <!-- Result Box -->
         <div id="resultBox"
-            class="hidden mt-6 bg-slate-800/50 border border-slate-700 p-5 rounded-xl text-slate-200 text-sm leading-relaxed border-l-4 border-l-red-500 fade-in-up">
-            <p id="roastText"></p>
+            class="hidden mt-8 bg-black/40 backdrop-blur-md border border-white/5 border-l-[3px] border-l-red-500 p-6 rounded-2xl text-slate-200 text-sm leading-relaxed shadow-2xl relative overflow-hidden">
+            <div
+                class="absolute top-0 right-0 w-32 h-32 bg-red-500/10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none">
+            </div>
+            <div class="relative z-10">
+                <p id="roastText" class="font-medium opacity-90"></p>
+            </div>
         </div>
     </div>
 
-    <p class="mt-6 text-xs text-slate-500 text-center">Powered by Gemini | Developed by <a href="https://diaww.my.id"
-            class="text-slate-400 hover:text-white transition" target="_blank">diaww.dev</a></p>
+    <!-- Footer -->
+    <p
+        class="mt-8 mb-4 text-xs font-medium text-slate-500 text-center fade-in-up stagger-4 tracking-wide relative z-10">
+        Powered by <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Gemini</span>
+        <span class="mx-2 opacity-50">•</span>
+        Developed by <a href="https://diaww.my.id"
+            class="text-white hover:text-red-400 hover:underline transition-colors decoration-wavy underline-offset-4"
+            target="_blank">diaww.dev</a>
+    </p>
 
     <script>
-        // API KEY KAMU DI SINI (Diapit tanda kutip)
-        const API_KEY = 'AIzaSyApoyqBBVYWYSh-yZK43RcXtLDmJM8wJCM';
-
-        // Fungsi untuk menampilkan custom notifikasi
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
 
             toastMessage.textContent = message;
 
-            // Munculkan toast
             toast.classList.remove('opacity-0', '-translate-y-10');
             toast.classList.add('opacity-100', 'translate-y-0');
 
-            // Sembunyikan otomatis setelah 3.5 detik
             setTimeout(() => {
                 toast.classList.remove('opacity-100', 'translate-y-0');
                 toast.classList.add('opacity-0', '-translate-y-10');
@@ -196,26 +387,21 @@
             const resultBox = document.getElementById('resultBox');
             const roastText = document.getElementById('roastText');
 
-            // Validasi Input pakai Custom Toast
             if (!brand || !model || !ram || !storage) {
                 showToast("Isi dulu semua spek HP-nya bang!");
                 return;
             }
 
-            // Pengecekan API Key
-            if (!API_KEY || API_KEY.trim() === '') {
-                showToast("API Key Gemini belum diisi di script!");
-                return;
-            }
-
             // UI State: Loading
             btn.disabled = true;
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.classList.add('opacity-50', 'scale-95', 'pointer-events-none');
+            btn.classList.remove('hover:-translate-y-1');
+
             resultBox.classList.add('hidden');
             resultBox.classList.remove('fade-in-up');
+
             loading.classList.remove('hidden');
 
-            // Prompt untuk AI
             const prompt = `Kamu adalah seorang stand-up comedian beraliran roasting brutal dan reviewer gadget paling kejam, sarkas, dan toxic (tapi lucu) di tahun 2026. 
             Tolong roasting sepuasnya sampah elektronik dengan spesifikasi berikut: 
             Merek: ${brand}, Tipe: ${model}, RAM: ${ram}GB, Storage: ${storage}GB. 
@@ -225,40 +411,46 @@
             Maksimal 2 atau 3 paragraf pendek saja. Langsung gas roasting orangnya kayak kamu lagi di panggung!`;
 
             try {
-                // Link dikembalikan ke gemini-1.5-flash
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, {
+                // Fetch dari Backend Proxy yang baru kita buat (server.js)
+                const response = await fetch('/api/roast', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
+                    body: JSON.stringify({ prompt: prompt })
                 });
 
                 const data = await response.json();
 
                 if (data.error) {
-                    throw new Error(data.error.message);
+                    throw new Error(data.error);
                 }
 
-                const roastReply = data.candidates[0].content.parts[0].text;
+                const roastReply = data.reply;
 
-                // Hapus format markdown asterisk agar rapi di HTML
-                roastText.innerHTML = roastReply.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>').replace(/\n/g, '<br>');
+                // Memperindah highlight text bold
+                let formattedReply = roastReply.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white bg-red-500/20 px-1 rounded mx-[1px] font-bold">$1</strong>');
+                // Format newlines buat paragraf proper
+                formattedReply = formattedReply.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
 
-                // Tampilkan hasil
+                roastText.innerHTML = formattedReply;
+
                 loading.classList.add('hidden');
                 resultBox.classList.remove('hidden');
+
                 void resultBox.offsetWidth;
                 resultBox.classList.add('fade-in-up');
+
+                setTimeout(() => {
+                    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
 
             } catch (error) {
                 console.error(error);
                 showToast("Waduh, gagal ngeroast. Cek koneksi internetmu.");
                 loading.classList.add('hidden');
             } finally {
-                // UI State: Reset Button
                 btn.disabled = false;
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.classList.remove('opacity-50', 'scale-95', 'pointer-events-none');
+                btn.classList.add('hover:-translate-y-1');
             }
         }
     </script>
